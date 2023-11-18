@@ -54,8 +54,14 @@ body {
     width: 200px;
     margin-top: -80px;
     margin-bottom: -20px;
+    transition: 0.1s;
+    transition-timing-function: ease-in-out;
 }
 
 #tree {
     width: 420px;
+}
+
+#start-btn:hover {
+    cursor: pointer;
 }
