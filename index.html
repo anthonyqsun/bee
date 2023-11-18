@@ -13,6 +13,28 @@
 </head>
 
 <body>
+    <div id="timer-options-modal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Session Options</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Session Length (Minutes)</p>
+                    <input type="number" id="session-length" value="25" min="1" max="300">
+                    <span> Minutes</span>
+                    <p>Break Length (Minutes)</p>
+                    <input type="number" id="break-length" value="5" min="1" max="30">
+                    <span> Minutes</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                    <button id="modal-start-btn" type="button" class="btn btn-primary">Start</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="tasks" class="modal modal-lg" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

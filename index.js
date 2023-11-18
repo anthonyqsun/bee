@@ -54,6 +54,12 @@ var setTimer = function () {
     }, 1000);
 }
 
+function newSession(duration) {
+    var session = new Session(duration);
+    localStorage.setItem("session", JSON.stringify(session));
+    setTimer();
+}
+
 window.onload = function () {
     var button = document.getElementById("start-btn");
     button.addEventListener("mouseenter", function () {
@@ -80,9 +86,20 @@ window.onload = function () {
             console.log(JSON.stringify(session));
             return;
         }
-        var session = new Session(1);
-        localStorage.setItem("session", JSON.stringify(session));
-        setTimer();
+
+        const myModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
+        myModal.show();
+
+        var start = document.getElementById("modal-start-btn");
+        start.addEventListener("click", function () {
+            var lengthField = document.getElementById("session-length");
+            if (lengthField.value == "" || lengthField.value < lengthField.getAttribute("min") || lengthField.value > lengthField.getAttribute("max")) {
+                lengthField.style.borderBottomColor = "red";
+                return;
+            }
+            newSession(lengthField.value);
+            myModal.hide();
+        });
     });
 
     var session = localStorage.getItem("session");
