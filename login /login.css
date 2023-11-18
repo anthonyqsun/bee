@@ -1,19 +1,26 @@
 .box-hold{
     text-align: center;
-    margin-top: 10%;
-    border: 0.7px solid rgb(134, 131, 131);
+    margin-top: 20%;
+    border: 0.7px solid #1e1815;
     border-radius: 5px;
-    padding: 50px
+    padding: 50px;
+    background-color: #6C4A3F
 }
 
 input{
     width: 100%;
     padding: 10px;
-    border: 0.7px solid rgb(134, 131, 131);
+    border: 2px solid #634439;
     border-radius: 5px;
-
+    background-color: rgb(121, 97, 89);
 }
+::placeholder {
+    color: rgb(187, 168, 168);
+  }
 
 .btn{
     width: 30%;
+}
+body{
+    background-color: #b7db89;
 }

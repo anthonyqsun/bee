@@ -8,4 +8,16 @@ function submitUsername() {
     console.log(name);
     document.getElementById("username").value = "";
     localStorage.setItem("name", name);
+
+    databasePush();
+
 }
+
+function logout(){
+    alert("logged out");
+    localStorage.removeItem("name");
+}
+
+
+
+
