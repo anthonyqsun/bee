@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyHive</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
 </head>
 
 <body>
@@ -46,64 +47,32 @@
             <ul id="navbar">
                 <li>Tasks</li>
                 <li>
-                    <svg version="1.1" id="start-btn" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256.7 222.3"
-                        style="enable-background:new 0 0 256.7 222.3;" xml:space="preserve">
-                        <style type="text/css">
-                            .st0 {
-                                fill: #9B6C34;
-                                stroke: #353535;
-                                stroke-width: 10;
-                                stroke-miterlimit: 10;
-                            }
-
-                            .st1 {
-                                clip-path: url(#SVGID_00000122705826107727737200000000295683683135711117_);
-                                fill: #EADF13;
-                            }
-
-                            .st2 {
-                                fill: #353535;
-                            }
-
-                            .st3 {
-                                font-family: 'Helvetica';
-                            }
-
-                            .st4 {
-                                font-size: 48px;
-                            }
-
-                            .st5 {
-                                fill: none;
-                            }
-                        </style>
-                        <polygon class="st0" points="189.6,5 67.1,5 5.8,111.1 67.1,217.3 189.6,217.3 250.9,111.1 " />
-                        <g>
+                    <div id="start-btn">
+                        <svg data-name="uuid-1a381f9b-8e4e-4014-9151-9b1c3576fd9d" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256.67 222.28">
                             <defs>
-                                <polygon id="SVGID_1_"
-                                    points="181.1,19.7 75.5,19.7 22.7,111.1 75.5,202.6 181.1,202.6 233.9,111.1 		" />
+                                <clipPath id="uuid-3773110d-340b-4125-b277-c23dad71c622">
+                                    <polygon
+                                        points="181.13 19.7 75.54 19.7 22.75 111.14 75.54 202.58 181.13 202.58 233.92 111.14 181.13 19.7"
+                                        style="fill: none;" />
+                                </clipPath>
                             </defs>
-                            <clipPath id="SVGID_00000168802617138191070820000014737761513081770374_">
-                                <use xlink:href="#SVGID_1_" style="overflow:visible;" />
-                            </clipPath>
-
-                            <rect x="17.8" y="19.7"
-                                style="clip-path:url(#SVGID_00000168802617138191070820000014737761513081770374_);fill:#EADF13;"
-                                width="221.1" height="187.2" />
-                        </g>
-                        <g>
-                            <text transform="matrix(1 0 0 1 77.65 100.33)" class="st2 st3 st4">Start</text>
-                            <text transform="matrix(1 0 0 1 42.95 151.33)" class="st2 st3 st4">Session</text>
-                        </g>
-                        <path class="st5" d="M117.9,112.5c0.1,0,0.2,0,0.3,0L117.9,112.5L117.9,112.5z" />
-                        <path class="st5" d="M170,112.5c0.3,0,0.5,0,0.8,0h-1.5C169.5,112.5,169.7,112.5,170,112.5z" />
-                        <path class="st5" d="M222.1,112.5L222.1,112.5l-0.3,0C221.9,112.5,222,112.5,222.1,112.5z" />
-                        <path class="st5" d="M17,112.5c0.1,0,0.2,0,0.3,0L17,112.5L17,112.5z" />
-                        <path class="st5" d="M69.1,112.5c0.3,0,0.5,0,0.8,0h-1.5C68.6,112.5,68.9,112.5,69.1,112.5z" />
-                        <path class="st5" d="M118.2,112.5L118.2,112.5l-0.3,0C118,112.5,118.1,112.5,118.2,112.5z" />
-                    </svg>
-
+                            <polygon
+                                points="189.61 5 67.05 5 5.77 111.14 67.05 217.28 189.61 217.28 250.89 111.14 189.61 5"
+                                style="fill: #9b6c34; stroke: #353535; stroke-miterlimit: 10; stroke-width: 10px;" />
+                            <g style="clip-path: url(#uuid-3773110d-340b-4125-b277-c23dad71c622);">
+                                <rect id="start-btn-bg" x="17.78" y="19.7" width="221.12" height="187.18"
+                                    style="fill: #eadf13;" />
+                            </g>
+                            <path d="m117.92,112.5c.1,0,.2,0,.3.01h-.3Z" style="fill: none;" />
+                            <path d="m170.01,112.5c.26,0,.51,0,.77.01h-1.53c.25,0,.5-.01.76-.01Z" style="fill: none;" />
+                            <path d="m222.1,112.5h0s-.3.01-.3.01c.1,0,.2,0,.3-.01Z" style="fill: none;" />
+                            <path d="m17.04,112.51c.1,0,.2,0,.3.01h-.3Z" style="fill: none;" />
+                            <path d="m69.13,112.51c.26,0,.51,0,.77.01h-1.53c.25,0,.5-.01.76-.01Z" style="fill: none;" />
+                            <path d="m118.22,112.51h0s-.3.01-.3.01c.1,0,.2,0,.3-.01Z" style="fill: none;" />
+                        </svg>
+                        <p id="timer">Start</p>
+                    </div>
                 </li>
                 <li>Active Members</li>
             </ul>
