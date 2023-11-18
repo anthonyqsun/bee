@@ -1,6 +1,5 @@
 .box-hold{
     text-align: center;
-    margin-top: 20%;
     border: 0.7px solid #1e1815;
     border-radius: 5px;
     padding: 50px;
@@ -23,4 +22,6 @@ input{
 }
 body{
     background-color: #b7db89;
+    background-image: url("../assets/images/tree.png");
+    background-repeat: no-repeat;
 }
