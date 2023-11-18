@@ -1,1 +1,1 @@
-# StudyBee
+# StudyHive
