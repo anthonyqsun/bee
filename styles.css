@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    background-color: #b7db89;
+    background-color: #b7db89 !important;
     padding: 0px;
     margin: 0px;
     height: 100%;
