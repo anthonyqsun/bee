@@ -4,8 +4,16 @@ from flask import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-@app.route("/")
+    
+
+@app.route("/", methods=['POST', 'GET'])
 def root():
+    if request.method == 'POST':
+        content = request.form['name']
+        
+    else:
+        render_template("login.html")
+
     return render_template("login.html")
 
 @app.route('/robots.txt')

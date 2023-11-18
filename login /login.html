@@ -20,8 +20,11 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 box-hold">
-                <input type="text" id="username" name="fname" placeholder="Name Your Bee!" style="color: white"><br><br>
-                <button type="button" class="btn btn-success" onclick="submitUsername()">Enter</button>
+                <form action="POST">
+                    <input type="text" id="name" name="name" placeholder="Name Your Bee!" style="color: white"><br><br>
+                    <button type="submit" class="btn btn-success" onclick="submitUsername()">Enter</button>
+                </form>
+
 
             </div>
             <div class="col-md-3"></div>
