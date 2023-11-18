@@ -1,0 +1,33 @@
+html {
+    height: 100%;
+
+}
+
+body {
+    background-color: #b7db89;
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+}
+
+#navbar {
+    background-color: #ccc787;
+    border: #353535 10px solid;
+    margin: 0px;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 100px;
+    justify-self: flex-end;
+}
