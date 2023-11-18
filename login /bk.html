@@ -1,0 +1,75 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body {
+  min-height: 1000px;
+}
+
+svg {
+  display: block;
+  position: sticky;
+  top: 20px;
+}
+    </style>
+    
+
+
+</head>
+<body>
+
+
+              
+    <svg id="text-container" viewBox="0 0 1000 194">
+        <path id="text-curve" d="M0 100s269.931 86.612 520 0c250.069-86.612 480 0 480 0" fill="none" stroke="gold"/>
+        <image id="cat" x="0" y="100" xlink:href="https://placekitten.com/40/40"/>
+      </svg>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> 
+
+ <script>
+ var path = document.querySelector('#text-curve');
+var cat = document.querySelector('#cat');
+var catWidth = 40;
+var catHeight = 40;
+let i = 0.1;
+
+function updateImagePosition(offset) {
+    console.log(offset)
+  let pt = path.getPointAtLength(offset * path.getTotalLength());
+  cat.setAttribute("x", pt.x - catWidth/2);
+  cat.setAttribute("y", pt.y - catHeight/2);
+//   console.log(i)
+//   i+=0.1;
+}
+
+// From: https://stackoverflow.com/questions/2387136/cross-browser-method-to-determine-vertical-scroll-percentage-in-javascript
+function getScrollFraction() {
+    var h = document.documentElement, 
+        b = document.body,
+        st = 'scrollTop',
+        sh = 'scrollHeight';
+    return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight);
+}
+
+function onScroll() {
+  updateImagePosition( getScrollFraction() );
+}
+
+
+updateImagePosition(0);
+// setInterval(updateImagePosition(i), 10);
+setInterval(console.log('hi'), 1)
+
+window.addEventListener('scroll', onScroll);
+   </script>
+</html>
