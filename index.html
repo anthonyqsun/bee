@@ -13,6 +13,23 @@
 </head>
 
 <body>
+    <div id="tasks" class="modal modal-lg" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="container">
         <div id="game">
             <svg id="tree" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700.2 899.76">
@@ -48,7 +65,8 @@
         </div>
         <div id="footer">
             <ul id="navbar">
-                <li>Tasks</li>
+                <li><button class="nav-btn" type="button" data-bs-toggle="modal" data-bs-target="#tasks">Tasks</button>
+                </li>
                 <li>
                     <div id="start-btn">
                         <svg data-name="uuid-1a381f9b-8e4e-4014-9151-9b1c3576fd9d" xmlns="http://www.w3.org/2000/svg"
