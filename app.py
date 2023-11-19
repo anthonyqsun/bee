@@ -11,7 +11,7 @@ socketio = SocketIO(app, manage_session=False)
 db = database.Database()
 
 
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=['GET', 'POST'])
 def root():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -45,7 +45,7 @@ def noindex():
     r.headers["Content-Type"] = "text/plain; charset=utf-8"
     return r
 
-@app.route("start_timer")
+@socketio.on("start_timer")
 def start(data):
     db.setTask(data['room'], data['name'], data['task'])
 
@@ -59,8 +59,9 @@ def inc(data):
 
 @socketio.on("update")
 def update(data):
-    emit("bee_updates", db.getAllBeeInfo(data['room']))
-    emit("task_updates", db.getTasks(data['room']))
+    emit("bee_updates", db.getAllBeeInfo(data['room']), to=data['room'])
+    emit("task_updates", db.getTasks(data['room']), to=data['room'])
 
 if __name__ == "__main__":
+    app.debug = True
     socketio.run(app)
