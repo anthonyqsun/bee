@@ -9,6 +9,7 @@ const HIVE_Y = 270;
 
 let bees = {};
 let flowers = {};
+let currentLeaderboard = [];
 
 let flowersCoords = [[727, 298], [517, 387], [620, 174], [787, 97]];
 
@@ -371,8 +372,10 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
-function leaderboard() {
-    for (b in bee_info) {
+function leaderboard(){
+    for(b in bee_info){
+        if(currentLeaderboard.includes(b)) continue;
+
         let parent = document.getElementById('leaderboard');
 
         let row = document.createElement('div');
@@ -389,6 +392,7 @@ function leaderboard() {
         `;
 
         parent.appendChild(row);
+        currentLeaderboard.push(b);
     }
 }
 
