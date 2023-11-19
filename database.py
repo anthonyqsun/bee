@@ -32,7 +32,7 @@ class Database:
     def addBee(self, room, name, task=""):
         room = room.strip()
         name = name.strip()
-        if name in self.getAllBeeInfo(room):
+        if name in self.getAllBeeInfo():
             self.c.execute(
                 f"UPDATE bees SET room='{room}', task='' WHERE name='{name}'"
             )
@@ -71,10 +71,13 @@ class Database:
 
         for pair in pairs:
             out[pair[0]] = pair[1]
+        
+        return out
 
-    def getAllBeeInfo(self, room) -> dict:
+    def getAllBeeInfo(self, room="") -> dict:
         room = room.strip()
-        self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}' ORDER BY honey DESC")
+        cond = 'room=\''+room+'\'' if room else 'true'
+        self.c.execute(f"SELECT name, honey, task FROM bees WHERE {cond} ORDER BY honey DESC")
         data = self.c.fetchall()
 
         out = {}
