@@ -15,7 +15,7 @@ socket.on('task_updates', (t_i) => {
 
 //  GLOBAL VARIABLES
 var sessionActive = false;
-
+var session = null;
 
 //  ELEMENTS
 var sessionOptionsModal;
@@ -53,8 +53,8 @@ class Session {
     }
 }
 
-function addTask(){
-    if(inputBox.value === ''){
+function addTask() {
+    if (inputBox.value === '') {
 
     } else {
         // list item
@@ -96,7 +96,6 @@ var setTimer = function () {
         var rect = document.getElementById("start-btn-bg");
         var txt = document.getElementById("timer");
 
-        var session = JSON.parse(localStorage.getItem("session"));
         var endTime = session["endTime"];
         var minutes = getMinutesLeft(Date.parse(endTime));
         var seconds = getSecondsLeft(Date.parse(endTime));
@@ -125,43 +124,34 @@ var setTimer = function () {
                 }
             }
             else {
-                localStorage.removeItem("session");
+                session = null;
             }
         }
     }, 1000);
 }
 
 function startBreak() {
-    var dict = JSON.parse(localStorage.getItem("session"));
-    var session = new Session(dict["studyLength"], dict["breakLength"]);
     session.startBreak();
-    localStorage.setItem("session", JSON.stringify(session));
     setTimer();
 }
 
 function endBreak() {
-    var dict = JSON.parse(localStorage.getItem("session"));
-    var session = new Session(dict["studyLength"], dict["breakLength"]);
     session.endBreak();
-    localStorage.setItem("session", JSON.stringify(session));
     setTimer();
 }
 
 function newSession(duration, breakField) {
-    var session = new Session(duration, breakField);
-    localStorage.setItem("session", JSON.stringify(session));
+    session = new Session(duration, breakField);
     setTimer();
 }
 
 function endSession() {
-    var session = JSON.parse(localStorage.getItem("session"));
     session["endTime"] = Date(Date.now());
     session["interrupted"] = true;
-    localStorage.setItem("session", JSON.stringify(session));
 }
 
 window.onload = function () {
-    let data = {room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML};
+    let data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
     // Socket emits
     socket.emit("update", data);
@@ -213,11 +203,6 @@ window.onload = function () {
         newSession(lengthField.value, breakField.value);
         timerOptionsModal.hide();
     });
-
-    var session = localStorage.getItem("session");
-    if (session) {
-        setTimer();
-    }
 
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
