@@ -60,6 +60,7 @@ def start(data):
 
 @socketio.on("create_task")
 def create_task(data):
+    print("creating a task")
     db.addTask(data["room"], data["task"], data["color"])
 
 
@@ -70,7 +71,8 @@ def inc(data):
 
 @socketio.on("update")
 def update(data):
-    emit("bee_updates", db.getAllBeeInfo(data["room"]), to=data["room"])
+    print(data["room"])
+    emit("bee_updates", db.getAllBeeInfo(room=data["room"]), to=data["room"])
     emit("task_updates", db.getTasks(data["room"]), to=data["room"])
 
 

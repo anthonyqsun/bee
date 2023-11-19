@@ -1,5 +1,7 @@
 import sqlite3
-import threading
+from threading import Lock
+
+lock = Lock()
 
 
 class Database:
@@ -8,10 +10,12 @@ class Database:
 
         self.db = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.c = self.db.cursor()
-        self.lock = threading.Lock()
 
     def createBeeTable(self):
+        lock.acquire(True)
         self.c.execute(f"DROP TABLE IF EXISTS bees")
+        lock.release()
+        lock.acquire(True)
         self.c.execute(
             f"CREATE TABLE bees ( \
                 name TEXT PRIMARY KEY, \
@@ -20,9 +24,13 @@ class Database:
                 room TEXT \
             )"
         )
+        lock.release()
 
     def createTaskTable(self):
+        lock.acquire(True)
         self.c.execute(f"DROP TABLE IF EXISTS tasks")
+        lock.release()
+        lock.acquire(True)
         self.c.execute(
             f"CREATE TABLE tasks ( \
                 task TEXT, \
@@ -30,34 +38,43 @@ class Database:
                 room TEXT \
             )"
         )
+        lock.release()
 
     def addBee(self, room, name, task=""):
         room = room.strip()
         name = name.strip()
         if name in self.getAllBeeInfo():
+            lock.acquire(True)
             self.c.execute(
                 f"UPDATE bees SET room='{room}', task='' WHERE name='{name}'"
             )
+            lock.release()
         else:
+            lock.acquire(True)
             self.c.execute(
                 f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",
                 (name, 0, task, room),
             )
+            lock.release()
         self.commit()
 
     def addTask(self, room, task, color):
         room = room.strip()
+        lock.acquire(True)
         self.c.execute(
             f"INSERT INTO tasks (task, color, room) VALUES (?, ?, ?)",
             (task, color, room),
         )
+        lock.release()
         self.commit()
 
     def commit(self) -> None:
         self.db.commit()
 
     def getRooms(self) -> list:
+        lock.acquire(True)
         rooms = self.c.execute(f"SELECT room FROM bees")
+        lock.release()
         unique_rooms = set()
         for x in rooms:
             unique_rooms.add(x)
@@ -65,8 +82,9 @@ class Database:
 
     def getTasks(self, room) -> list:
         room = room.strip()
-
+        lock.acquire(True)
         self.c.execute(f"SELECT task, color from tasks WHERE room='{room}'")
+        lock.release()
         pairs = self.c.fetchall()
 
         out = {}
@@ -79,7 +97,12 @@ class Database:
     def getAllBeeInfo(self, room="") -> dict:
         room = room.strip()
         cond = "room='" + room + "'" if room else "true"
-        self.c.execute(f"SELECT name, honey, task FROM bees WHERE {cond}")
+        print(room, cond)
+        lock.acquire(True)
+        self.c.execute(
+            f"SELECT name, honey, task FROM bees WHERE {cond} ORDER BY honey DESC"
+        )
+        lock.release()
         data = self.c.fetchall()
 
         out = {}
@@ -92,9 +115,11 @@ class Database:
     def getBeeInfo(self, room, bee) -> dict:
         room = room.strip()
         bee = bee.strip()
+        lock.acquire(True)
         self.c.execute(
             f"SELECT honey, task FROM bees WHERE room='{room}' AND name='{bee}'"
         )
+        lock.release()
         data = self.c.fetchall()[0]
 
         return {"honey": data[0], "task": data[1]}
@@ -103,15 +128,19 @@ class Database:
         room = room.strip()
         bee = bee.strip()
         duration = int(float(duration))
+        lock.acquire(True)
         self.c.execute(
             f"UPDATE bees SET honey={self.getBeeInfo(room, bee)['honey']+duration} WHERE room='{room}' AND name='{bee}'"
         )
+        lock.release()
         self.commit()
 
     def setTask(self, room, bee, task):
+        lock.acquire(True)
         self.c.execute(
             f"UPDATE bees SET task={task} WHERE room='{room}' AND name='{bee}'"
         )
+        lock.release()
 
     def close(self) -> None:
         self.db.close()

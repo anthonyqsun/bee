@@ -131,13 +131,19 @@ socket.on('task_updates', (t_i) => {
 
     let drop = document.getElementById("task-dropdown-items");
     drop.innerHTML = "";
+    for (task in flowers) {
+        if (flowers[task] != null) {
+            flowers[task].remove();
+        }
+    }
+    FLOWER_NUM = 0;
     for (task in task_info) {
         let item = document.createElement("li");
         let button = document.createElement("button");
         button.setAttribute("class", "dropdown-item");
         button.setAttribute("type", "button");
         button.setAttribute("onclick", "document.getElementById('task-dropdown').innerText = this.innerText;");
-        button.innerHTML = task;
+        button.innerText = task;
         item.appendChild(button);
         drop.appendChild(item);
 
@@ -201,9 +207,12 @@ function addTask() {
         socket.emit("update", data);
     }
     inputBox.value = "";
+
+    console.log(document.getElementById("name").innerText);
 }
 
 function addFlower(task, color) {
+
     let flowerStubs = ["red", "orange", "blue", "purple"];
 
     flowers[task] = document.createElement("img");
@@ -299,6 +308,7 @@ function endSession() {
 }
 
 window.onload = function () {
+    //console.log("AAAAAA");
 
     data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
