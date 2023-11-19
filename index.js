@@ -1,5 +1,3 @@
-var socket = io();
-
 //  GLOBAL VARIABLES
 var sessionActive = false;
 

@@ -40,7 +40,7 @@ class Database:
     def addRoom(self, id):
         self.c.execute(
             f"INSERT INTO rooms (id) VALUES (?)",
-            (id,)
+            (id)
         )
         self.commit()
 
@@ -62,7 +62,7 @@ class Database:
     def commit(self) -> None:
         self.db.commit()
 
-    def getRooms(self) -> list:
+    def getRooms(self, room) -> list:
         self.c.execute(f"SELECT id FROM rooms")
         return self.c.fetchall();
 
