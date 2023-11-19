@@ -9,6 +9,19 @@ socket.on('bee_updates', (b_i) => {
 });
 socket.on('task_updates', (t_i) => {
     task_info = t_i;
+
+    let drop = document.getElementById("task-dropdown-items");
+    drop.innerHTML="";
+    for (task in task_info) {
+        let item = document.createElement("li");
+        let button = document.createElement("button");
+        button.setAttribute("class", "dropdown-item");
+        button.setAttribute("type","button");
+        button.setAttribute("onclick","document.getElementById('task-dropdown').innerText = this.innerText;");
+        button.innerHTML = task;
+        item.appendChild(button);
+        drop.appendChild(item);
+    }
 });
 
 for (bee in bee_info) {
@@ -169,8 +182,8 @@ window.onload = function () {
     data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
     // Socket emits
-    socket.emit("update", data);
     socket.emit("join", data);
+    socket.emit("update", data);
 
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 

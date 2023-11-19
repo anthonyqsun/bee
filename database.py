@@ -31,7 +31,7 @@ class Database:
 
     def addBee(self, room, name, task=""):
         if name in self.getAllBeeInfo(room):
-            self.c.execute(f"UPDATE bees SET room={room}, task='' WHERE name='{name}'")
+            self.c.execute(f"UPDATE bees SET room='{room}', task='' WHERE name='{name}'")
         else:
             self.c.execute(
                 f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",

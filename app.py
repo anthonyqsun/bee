@@ -18,7 +18,6 @@ def root():
         name = request.form.get('name')
         room = request.form.get('room').strip()
 
-        # if room not in db.getRooms() or name not in db.getAllBeeInfo(room):
         db.addBee(room, name)
             
         flash(name)
