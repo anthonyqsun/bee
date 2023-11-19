@@ -1,9 +1,11 @@
 from os import urandom
 from flask import *
+from flask_cors import CORS
 from flask_socketio import SocketIO, send, emit, join_room
 import database
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "jwoifawn3onaslkdfj1"  # urandom(32)
 socketio = SocketIO(app, manage_session=False)
 
