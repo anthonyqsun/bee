@@ -11,7 +11,6 @@ socket.on('task_updates', (t_i) => {
     task_info = t_i;
 });
 
-let data = {room:document.getElementById("room_id").innerHTML, name:document.getElementById("name").innerHTML};
 
 
 //  GLOBAL VARIABLES
@@ -162,6 +161,8 @@ function endSession() {
 }
 
 window.onload = function () {
+    let data = {room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML};
+
     // Socket emits
     socket.emit("update", data);
 
