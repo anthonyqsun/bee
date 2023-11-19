@@ -63,4 +63,4 @@ def update(data):
 if __name__ == "__main__":
     app.debug = True
 
-    socketio.run(app)
+    socketio.run(app, port="0")

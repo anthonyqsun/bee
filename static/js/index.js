@@ -179,6 +179,8 @@ function endSession() {
 }
 
 window.onload = function () {
+    spawnBee(300, 300);
+
     data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
     // Socket emits
@@ -236,6 +238,66 @@ window.onload = function () {
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
+
+
+function spawnBee(xdestination, ydestination, ){
+    var bee = document.getElementById('bee');
+    let bee_y = 250;
+    let bee_x = 100;
+    // bee.setAttribute("x", bee_x );
+    // bee.setAttribute("y", bee_y );
+
+    bee.style.left = bee_x + "px";
+    bee.style.top = bee_y+ "px";
+
+    let millis = 300;
+    let frame = 10;
+
+    
+    bee_x_ratio = ((xdestination-bee_x)/millis);
+    bee_y_ratio = ((ydestination-bee_y)/millis);
+
+    bee_x_initial = bee_x;
+
+    reverseMode = false;
+    timer = 300;
+    rotationVal = 0;
+
+    const myInterval = setInterval(() => {
+        timer++;
+        if(reverseMode && timer == 300){
+            bee.style.transform = "scaleX(-1)";
+
+        }
+        if(!reverseMode && timer == 300){
+            bee.style.transform = "scaleX(1)";
+
+        }
+        if(reverseMode && timer > 300){
+            bee_x -= bee_x_ratio;
+            bee_y -= bee_y_ratio;
+        }
+        else if(timer > 300){
+            bee_x += bee_x_ratio;
+            bee_y += bee_y_ratio;
+        }
+
+        bee.style.left = bee_x + "px";
+        bee.style.top = bee_y + "px";  
+        if(bee_x > xdestination && timer > 300){
+            timer = 0;
+            reverseMode = true;
+
+        }
+        if(bee_x < bee_x_initial && timer > 300){
+            reverseMode = false;
+            timer = 0;
+        }
+ 
+    }, frame);
+
+}
+
 
 
 

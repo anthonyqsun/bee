@@ -178,3 +178,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.animated{
+    width: 100px;
+    position: absolute; 
+    top: 250px;
+    left: 100px;
+}
