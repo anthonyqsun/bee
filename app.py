@@ -56,6 +56,7 @@ def join(data):
 @socketio.on("start_timer")
 def start(data):
     db.setTask(data["room"], data["name"], data["task"])
+    emit("bee_updates", db.getAllBeeInfo(room=data["room"]), to=data["room"])
 
 
 @socketio.on("create_task")

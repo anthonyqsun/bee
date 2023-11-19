@@ -240,7 +240,8 @@ function getSecondsLeft(endTime) {
 
 var setTimer = function () {
     //  data[task] = TASK DATA [TBD]
-    //socket.emit("start_timer", data);    
+    data["task"] = bees[data["name"]].task;
+    socket.emit("start_timer", data);
 
     sessionActive = true;
     var timer = setInterval(function () {

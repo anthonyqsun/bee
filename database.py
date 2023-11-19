@@ -128,17 +128,19 @@ class Database:
         room = room.strip()
         bee = bee.strip()
         duration = int(float(duration))
-        lock.acquire(True)
+        print(duration)
+        print(self.getBeeInfo(room, bee)["honey"])
         self.c.execute(
             f"UPDATE bees SET honey={self.getBeeInfo(room, bee)['honey']+duration} WHERE room='{room}' AND name='{bee}'"
         )
-        lock.release()
         self.commit()
+        print(self.getBeeInfo(room, bee)["honey"])
+        print("AAAAA")
 
     def setTask(self, room, bee, task):
         lock.acquire(True)
         self.c.execute(
-            f"UPDATE bees SET task={task} WHERE room='{room}' AND name='{bee}'"
+            f"UPDATE bees SET task='{task}' WHERE room='{room}' AND name='{bee}'"
         )
         lock.release()
 
