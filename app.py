@@ -15,7 +15,7 @@ db = database.Database()
 def root():
     if request.method == 'POST':
         name = request.form.get('name')
-        room = request.form.get('room')
+        room = request.form.get('room').strip()
 
         if room in db.getRooms():
             if name not in db.getAllBeeInfo():
