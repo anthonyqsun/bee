@@ -22,16 +22,15 @@
                 </div>
                 <div class="modal-body">
                     <p>Session Length</p>
-                    <input type="number" id="session-length" value="25" min="1" max="300">
+                    <input type="number" id="session-length" value="25" min="0" max="300">
                     <span> Minutes</span>
                     <p>Break Length</p>
-                    <input type="number" id="break-length" value="5" min="1" max="30">
+                    <input type="number" id="break-length" value="5" min="0" max="30">
                     <span> Minutes</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                    <button id="modal-start-btn" type="button" class="btn btn-primary"
-                        data-bs-dismiss="modal">Start</button>
+                    <button id="modal-start-btn" type="button" class="btn btn-primary">Start</button>
                 </div>
             </div>
         </div>
@@ -68,6 +67,23 @@
                         onclick="localStorage.removeItem('session')">End Session</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="endBreak()">Start
                         Studying</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="end-session-modal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">⚠️ End Session</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to end this session?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="endSession()">End
+                        Session</button>
                 </div>
             </div>
         </div>

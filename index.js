@@ -112,6 +112,13 @@ function newSession(duration, breakField) {
     setTimer();
 }
 
+function endSession() {
+    var session = JSON.parse(localStorage.getItem("session"));
+    session["endTime"] = Date(Date.now());
+    session["interrupted"] = true;
+    localStorage.setItem("session", JSON.stringify(session));
+}
+
 window.onload = function () {
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
@@ -134,10 +141,8 @@ window.onload = function () {
     })
     button.addEventListener("click", function () {
         if (sessionActive) {
-            var session = JSON.parse(localStorage.getItem("session"));
-            session["endTime"] = Date(Date.now());
-            session["interrupted"] = true;
-            localStorage.setItem("session", JSON.stringify(session));
+            const warningModal = new bootstrap.Modal(document.getElementById('end-session-modal'), {});
+            warningModal.show();
             return;
         }
 
@@ -149,17 +154,18 @@ window.onload = function () {
         var lengthField = document.getElementById("session-length");
         var breakField = document.getElementById("break-length");
         var studyLength = parseInt(lengthField.value);
-        if (studyLength == "" || studyLength < parseInt(lengthField.getAttribute("min")) || studyLength > parseInt(lengthField.getAttribute("max"))) {
+        if (isNaN(studyLength) || studyLength < parseInt(lengthField.getAttribute("min")) || studyLength > parseInt(lengthField.getAttribute("max"))) {
             lengthField.style.borderBottomColor = "red";
             return;
         }
 
         var breakLength = parseInt(breakField.value);
-        if (breakLength == "" || breakLength < parseInt(breakField.getAttribute("min")) || breakLength > parseInt(breakField.getAttribute("max"))) {
+        if (isNaN(breakLength) === NaN || breakLength < parseInt(breakField.getAttribute("min")) || breakLength > parseInt(breakField.getAttribute("max"))) {
             breakField.style.borderBottomColor = "red";
             return;
         }
         newSession(lengthField.value, breakField.value);
+        timerOptionsModal.hide();
     });
 
     var session = localStorage.getItem("session");
