@@ -88,6 +88,55 @@ body {
     font-size: 32px;
 }
 
+
+.task-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #46342f;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+#task-input-box {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 14px;
+}
+
+#add-task-button{ /*to hexagon later or msth*/
+    border: none;
+    outline: none;  
+    cursor: pointer;
+    padding: 16px 50px;
+    background: #fff27b;
+    border-radius: 40px; 
+}
+
+#tasks-list{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    /* cursor: none; */
+}
+
+#one-task .checkmark:after{
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+  
 .modal-content {
     border: 10px solid #353535 !important;
     border-radius: 0px !important;
