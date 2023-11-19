@@ -98,7 +98,7 @@ body {
     margin-bottom: 25px;
 }
 
-input{
+#task-input-box {
     flex: 1;
     border: none;
     outline: none;

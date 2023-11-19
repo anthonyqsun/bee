@@ -141,6 +141,6 @@ window.onload = function () {
         setTimer();
     }
 
-    inputBox = document.getElementById('input-box');
+    inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
