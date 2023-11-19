@@ -1,5 +1,24 @@
+// Websocket listeners
+var socket = io();
+
+let bee_info = {};
+let task_info = {};
+
+socket.on('bee_updates', (b_i) => {
+    bee_info = b_i;
+});
+socket.on('task_updates', (t_i) => {
+    task_info = t_i;
+});
+
+let data = {room:document.getElementById("room_id").innerHTML, name:document.getElementById("name").innerHTML};
+
+
+
 //  GLOBAL VARIABLES
 var sessionActive = false;
+
+
 
 //  ELEMENTS
 var sessionOptionsModal;
@@ -170,6 +189,9 @@ function endSession() {
 }
 
 window.onload = function () {
+    // Socket emits
+    socket.emit("update", data);
+
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
     var button = document.getElementById("start-btn");
@@ -226,3 +248,4 @@ window.onload = function () {
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
+
