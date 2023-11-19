@@ -54,8 +54,13 @@ class Database:
         return list(unique_rooms)
 
     def getTasks(self, room) -> list:
-        self.c.execute(f"SELECT task from tasks WHERE room='{room}'")
-        return self.c.fetchall()
+        self.c.execute(f"SELECT task, color from tasks WHERE room='{room}'")
+        pairs = self.c.fetchall()
+
+        out = {}
+
+        for pair in pairs:
+            out[pair[0]] = pair[1]
 
     def getAllBeeInfo(self, room) -> dict:
         self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}'")
