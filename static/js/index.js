@@ -58,7 +58,7 @@ class Bee {
 
         document.getElementById("game").appendChild(this.sprite);
 
-        let millis = 700;
+        let millis = Math.sqrt(Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.y, 2));
         let frame = 10;
 
         let x_velocity = ((this.endX - this.x) / millis);
@@ -112,7 +112,7 @@ socket.on('bee_updates', (b_i) => {
 
         }
         else {
-            bees[bee] = new Bee(HIVE_X, HIVE_Y, 700, 100, bee);
+            bees[bee] = new Bee(HIVE_X, HIVE_Y, Math.random() * 700 + HIVE_X, Math.random() * 300 + 50, bee);
             bees[bee].spawn();
         }
     }
