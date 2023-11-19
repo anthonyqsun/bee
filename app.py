@@ -35,7 +35,7 @@ def root():
 
 @app.route("/hive/<room_id>")
 def hive(room_id):
-    join_room(room_id)
+    # join_room(room_id)
     name = get_flashed_messages()[0]
     return render_template("index.html", name=name, room_id=room_id)
 
