@@ -23,7 +23,7 @@ class Database:
         self.c.execute(f"DROP TABLE IF EXISTS tasks")
         self.c.execute(
             f"CREATE TABLE tasks ( \
-                task TEXT PRIMARY KEY, \
+                task TEXT, \
                 color TEXT, \
                 room TEXT \
             )"
