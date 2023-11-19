@@ -22,7 +22,6 @@ def root():
                 db.addBee(name, 0, room)
             
         else:
-            db.addRoom(room)
             db.createBeeTable()
             db.createTaskTable()
             db.addBee(room, name, 0, "")

@@ -6,15 +6,6 @@ class Database:
 
         self.db = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.c = self.db.cursor()
-        self.createRoomsTable()
-
-    def createRoomsTable(self):
-        self.c.execute(f"DROP TABLE IF EXISTS rooms")
-        self.c.execute(
-            f"CREATE TABLE rooms ( \
-                id TEXT PRIMARY KEY \
-            )"
-        )
 
     def createBeeTable(self):
         self.c.execute(f"DROP TABLE IF EXISTS bees")
@@ -37,13 +28,6 @@ class Database:
             )"
         )
 
-    def addRoom(self, id):
-        self.c.execute(
-            f"INSERT INTO rooms (id) VALUES (?)",
-            (id,)
-        )
-        self.commit()
-
     def addBee(self, room, name, honey=0, task=""):
         self.c.execute(
             f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",
@@ -63,8 +47,11 @@ class Database:
         self.db.commit()
 
     def getRooms(self) -> list:
-        self.c.execute(f"SELECT id FROM rooms")
-        return self.c.fetchall()
+        rooms = self.c.execute(f"SELECT room FROM bees")
+        unique_rooms = set()
+        for x in rooms:
+            unique_rooms.add(x)
+        return list(unique_rooms)
 
     def getTasks(self, room) -> list:
         self.c.execute(f"SELECT task from tasks WHERE room='{room}'")
