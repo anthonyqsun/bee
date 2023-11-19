@@ -19,7 +19,7 @@ var inputBox = null;
 var tasksList = null;
 
 // Websocket listeners
-var socket = io();
+var socket = io('studyhive.tech');
 
 let bee_info = {};
 let task_info = {};
