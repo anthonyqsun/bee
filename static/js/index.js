@@ -11,11 +11,16 @@ socket.on('task_updates', (t_i) => {
     task_info = t_i;
 });
 
+for(bee in bee_info){
+    console.log(bee);
+}
+let data = {};
+
 
 
 //  GLOBAL VARIABLES
 var sessionActive = false;
-
+var session = null;
 
 //  ELEMENTS
 var sessionOptionsModal;
@@ -54,6 +59,10 @@ class Session {
 }
 
 function addTask(){
+    //  data[task] = TASK DATA [TBD]
+    session.emit("create_task", data);
+    session.emit("update", data);
+
     if(inputBox.value === ''){
 
     } else {
@@ -89,6 +98,9 @@ function getSecondsLeft(endTime) {
 }
 
 var setTimer = function () {
+  //  data[task] = TASK DATA [TBD]
+    socket.emit("start_timer", data);    
+
     sessionActive = true;
     var timer = setInterval(function () {
         const RECT_HEIGHT = 187.18;
@@ -96,7 +108,6 @@ var setTimer = function () {
         var rect = document.getElementById("start-btn-bg");
         var txt = document.getElementById("timer");
 
-        var session = JSON.parse(localStorage.getItem("session"));
         var endTime = session["endTime"];
         var minutes = getMinutesLeft(Date.parse(endTime));
         var seconds = getSecondsLeft(Date.parse(endTime));
@@ -107,6 +118,9 @@ var setTimer = function () {
         rect.setAttribute("y", (RECT_START_Y + RECT_HEIGHT - (RECT_HEIGHT * percent)).toString());
 
         if (minutes < 0) {
+            session.emit("timer_end" , data);
+            session.emit("update" , data);
+
             clearInterval(timer);
             var studyLength = session.studyLength;
             var breakLength = session.breakLength;
@@ -125,46 +139,38 @@ var setTimer = function () {
                 }
             }
             else {
-                localStorage.removeItem("session");
+                session = null;
             }
         }
     }, 1000);
 }
 
 function startBreak() {
-    var dict = JSON.parse(localStorage.getItem("session"));
-    var session = new Session(dict["studyLength"], dict["breakLength"]);
     session.startBreak();
-    localStorage.setItem("session", JSON.stringify(session));
     setTimer();
 }
 
 function endBreak() {
-    var dict = JSON.parse(localStorage.getItem("session"));
-    var session = new Session(dict["studyLength"], dict["breakLength"]);
     session.endBreak();
-    localStorage.setItem("session", JSON.stringify(session));
     setTimer();
 }
 
 function newSession(duration, breakField) {
-    var session = new Session(duration, breakField);
-    localStorage.setItem("session", JSON.stringify(session));
+    session = new Session(duration, breakField);
     setTimer();
 }
 
 function endSession() {
-    var session = JSON.parse(localStorage.getItem("session"));
     session["endTime"] = Date(Date.now());
     session["interrupted"] = true;
-    localStorage.setItem("session", JSON.stringify(session));
 }
 
 window.onload = function () {
-    let data = {room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML};
+    data = {room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML};
 
     // Socket emits
     socket.emit("update", data);
+    socket.emit("join", data);
 
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
@@ -214,12 +220,9 @@ window.onload = function () {
         timerOptionsModal.hide();
     });
 
-    var session = localStorage.getItem("session");
-    if (session) {
-        setTimer();
-    }
-
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
+
+
 
