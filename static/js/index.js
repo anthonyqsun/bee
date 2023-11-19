@@ -235,7 +235,7 @@ window.onload = function () {
         }
 
         var breakLength = parseInt(breakField.value);
-        if (isNaN(breakLength) === NaN || breakLength < parseInt(breakField.getAttribute("min")) || breakLength > parseInt(breakField.getAttribute("max"))) {
+        if (isNaN(breakLength) || breakLength < parseInt(breakField.getAttribute("min")) || breakLength > parseInt(breakField.getAttribute("max"))) {
             breakField.style.borderBottomColor = "red";
             return;
         }
