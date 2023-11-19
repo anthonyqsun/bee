@@ -8,6 +8,9 @@ const HIVE_X = 205;
 const HIVE_Y = 319;
 
 let bees = {};
+let flowers = {};
+
+let flowersCoords = [[727, 298], [517, 387], [620, 174], [787, 97]];
 
 //  ELEMENTS
 var sessionOptionsModal;
@@ -211,16 +214,13 @@ function addTask() {
 function addFlower(task, color){
     let flowerStubs = ["red", "orange", "blue", "purple"];
     
-    var flower = document.createElement("img");
-    flower.classList.add("flower");
-
-    var fname = "../static/assets/images/flower_";
-    fname += flowerStubs[color] + ".png"
-
-    flower.src = fname;
-
-    //flower.style.
-
+    flowers[task] = document.createElement("img");
+    flowers[task].classList.add("flower");
+    flowers[task].setAttribute("src", "../static/assets/images/flower_" + flowerStubs[color] + ".png");
+    flowers[task].style.left = flowersCoords[FLOWER_NUM][0] + "px";
+    flowers[task].style.top = flowersCoords[FLOWER_NUM][1] + "px";
+    flowers[task].setAttribute('title', task);
+    document.getElementById('game').appendChild(flowers[task]);
 
 }
 

@@ -168,6 +168,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     top: 270px;
     left: 170px;
+    z-index: 1;
 }
 
 .leaderboard {
@@ -182,5 +183,5 @@ input::-webkit-inner-spin-button {
 
 .flower {
     position: absolute;
-    
+    width: 70px;
 }
