@@ -121,7 +121,7 @@ socket.on('bee_updates', (b_i) => {
             }
         }
         else {
-            bees[bee] = new Bee(HIVE_X, HIVE_Y, Math.random() * 700 + HIVE_X, Math.random() * 300 + 50, bee);
+            bees[bee] = new Bee(HIVE_X, HIVE_Y, Math.random() * 700 + HIVE_X, Math.random() * 300 + 50, bee, "");
             bees[bee].spawn();
         }
     }
@@ -140,6 +140,8 @@ socket.on('task_updates', (t_i) => {
         button.innerHTML = task;
         item.appendChild(button);
         drop.appendChild(item);
+
+        addFlower(task, parseInt(task_info[task]));
     }
 });
 
@@ -195,11 +197,6 @@ function addTask() {
         data["task"] = inputBox.value;
         data["color"] = FLOWER_COLOR;
 
-        //FLOWER_NUM++;
-        // limiting to 4 flower positions
-        FLOWER_NUM = (FLOWER_NUM + 1) % 4;
-        addFlower(data["task"], data["color"]);
-
         socket.emit("create_task", data);
         socket.emit("update", data);
     }
@@ -217,6 +214,7 @@ function addFlower(task, color) {
     flowers[task].setAttribute('title', task);
     document.getElementById('game').appendChild(flowers[task]);
 
+    FLOWER_NUM = (FLOWER_NUM + 1) % 4;
 }
 
 function getMinutesLeft(endTime) {

@@ -1,4 +1,5 @@
 import sqlite3
+import threading
 
 
 class Database:
@@ -7,6 +8,7 @@ class Database:
 
         self.db = sqlite3.connect(DB_FILE, check_same_thread=False)
         self.c = self.db.cursor()
+        self.lock = threading.Lock()
 
     def createBeeTable(self):
         self.c.execute(f"DROP TABLE IF EXISTS bees")
@@ -71,13 +73,13 @@ class Database:
 
         for pair in pairs:
             out[pair[0]] = pair[1]
-        
+
         return out
 
     def getAllBeeInfo(self, room="") -> dict:
         room = room.strip()
-        cond = 'room=\''+room+'\'' if room else 'true'
-        self.c.execute(f"SELECT name, honey, task FROM bees WHERE {cond} ORDER BY honey DESC")
+        cond = "room='" + room + "'" if room else "true"
+        self.c.execute(f"SELECT name, honey, task FROM bees WHERE {cond}")
         data = self.c.fetchall()
 
         out = {}
