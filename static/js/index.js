@@ -364,10 +364,11 @@ window.onload = function () {
 }
 
 function leaderboard(){
+    let parent = document.getElementById('landing');
+    parent.innerHTML = "";
+    
     for(b in bee_info){
-
-        let parent = document.getElementById('landing');
-        parent.innerHTML = "";
+        
         let row = document.createElement('div');
 
         row.innerHTML = `
