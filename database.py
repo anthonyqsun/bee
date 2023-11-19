@@ -16,7 +16,7 @@ class Database:
             )"
         )
 
-    def createBeeTable(self, room):
+    def createBeeTable(self):
         self.c.execute(f"DROP TABLE IF EXISTS bees")
         self.c.execute(
             f"CREATE TABLE bees ( \
@@ -27,7 +27,7 @@ class Database:
             )"
         )
 
-    def createTaskTable(self, room):
+    def createTaskTable(self):
         self.c.execute(f"DROP TABLE IF EXISTS tasks")
         self.c.execute(
             f"CREATE TABLE tasks ( \
@@ -40,7 +40,7 @@ class Database:
     def addRoom(self, id):
         self.c.execute(
             f"INSERT INTO rooms (id) VALUES (?)",
-            (id)
+            (id,)
         )
         self.commit()
 
@@ -62,13 +62,13 @@ class Database:
     def commit(self) -> None:
         self.db.commit()
 
-    def getRooms(self, room) -> list:
+    def getRooms(self) -> list:
         self.c.execute(f"SELECT id FROM rooms")
-        return self.c.fetchall();
+        return self.c.fetchall()
 
     def getTasks(self, room) -> list:
         self.c.execute(f"SELECT task from tasks WHERE room='{room}'")
-        return self.c.fetchall();
+        return self.c.fetchall()
 
     def getAllBeeInfo(self, room) -> dict:
         self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}'")

@@ -11,7 +11,7 @@ socketio = SocketIO(app, manage_session=False)
 db = database.Database()
 
 
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=['GET', 'POST'])
 def root():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -23,11 +23,13 @@ def root():
             
         else:
             db.addRoom(room)
-            db.createBeeTable(room)
-            db.createTaskTable(room)
+            db.createBeeTable()
+            db.createTaskTable()
             db.addBee(room, name, 0, "")
         
         flash(name)
+        print(room)
+        print(url_for("hive", room_id=room))
         return redirect(url_for("hive", room_id=room))
 
     else:
@@ -35,7 +37,6 @@ def root():
 
 @app.route("/hive/<room_id>")
 def hive(room_id):
-    # join_room(room_id)
     name = get_flashed_messages()[0]
     return render_template("index.html", name=name, room_id=room_id)
 
@@ -45,7 +46,11 @@ def noindex():
     r.headers["Content-Type"] = "text/plain; charset=utf-8"
     return r
 
-@app.route("start_timer")
+@socketio.on("join")
+def join(data):
+    join_room(data['room'])
+
+@socketio.on("start_timer")
 def start(data):
     db.setTask(data['room'], data['name'], data['task'])
 
@@ -59,8 +64,10 @@ def inc(data):
 
 @socketio.on("update")
 def update(data):
-    emit("bee_updates", db.getAllBeeInfo(data['room']))
-    emit("task_updates", db.getTasks(data['room']))
+    emit("bee_updates", db.getAllBeeInfo(data['room']), to=data['room'])
+    emit("task_updates", db.getTasks(data['room']), to=data['room'])
 
 if __name__ == "__main__":
+    app.debug = True
+
     socketio.run(app)
