@@ -19,7 +19,7 @@ var inputBox = null;
 var tasksList = null;
 
 // Websocket listeners
-var socket = io('studyhive.tech');
+var socket = io('https://mhacks-e232e16d93ab.herokuapp.com');
 
 let bee_info = {};
 let task_info = {};
