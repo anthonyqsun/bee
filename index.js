@@ -1,6 +1,57 @@
 //  GLOBAL VARIABLES
 var sessionActive = false;
 
+var inputBox = null;
+var tasksList = null;
+
+function addTask(){
+    if(inputBox.value === ''){
+        alert("No input?");
+    } else {
+        // list item
+        let task = document.createElement("li");
+        //task.className = "one-task";
+        //task.innerHTML = inputBox.value + " ";
+
+        // checkbox
+        let checkbox = document.createElement("INPUT");
+        checkbox.setAttribute("type", "checkbox");
+        // let checkboxR = document.createElement("INPUT");
+        // checkboxR.setAttribute("type", "checkbox");
+        // checkboxR.setAttribute("id", "check-red");
+        // checkboxR.classList.add('colorpicker');
+
+        // let checkboxO = document.createElement("INPUT");
+        // checkboxO.setAttribute("type", "checkbox");
+        // checkboxO.setAttribute("id", "check-orange");
+        // checkboxO.classList.add('colorpicker');
+
+        // let checkboxB = document.createElement("INPUT");
+        // checkboxB.setAttribute("type", "checkbox");
+        // checkboxB.setAttribute("id", "check-blue");
+        // checkboxB.classList.add('colorpicker');
+
+        // let checkboxP = document.createElement("INPUT");
+        // checkboxP.setAttribute("type", "checkbox");
+        // checkboxP.setAttribute("id", "check-purple");
+        // checkboxP.classList.add('colorpicker');
+
+        // label.appendChild(checkboxR);
+        // label.appendChild(checkboxO);
+        // label.appendChild(checkboxB);
+        // label.appendChild(checkboxP);
+
+        var label = document.createElement("label");
+        var labelText = document.createElement("span");
+        labelText.innerText = "  " + inputBox.value;
+        label.appendChild(checkbox);
+        label.appendChild(labelText);
+        task.appendChild(label);
+        tasksList.appendChild(task);
+    }
+    inputBox.value = "";
+}
+
 class Session {
     constructor(duration) {
         this.startTime = new Date();
@@ -89,4 +140,7 @@ window.onload = function () {
     if (session) {
         setTimer();
     }
+
+    inputBox = document.getElementById('input-box');
+    tasksList = document.getElementById('tasks-list');
 }
