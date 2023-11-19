@@ -39,7 +39,7 @@ var tasksList = null;
 class Session {
     constructor(duration, breakLength) {
         this.startTime = new Date(Date.now());
-        this.endTime = new Date(this.startTime.getTime() + duration * 60000);
+        this.endTime = new Date(this.startTime.getTime() + duration * 60000 + 1000);
         this.duration = duration * 60000;
         this.interrupted = false;
         this.studyLength = duration;
@@ -55,14 +55,14 @@ class Session {
     startBreak() {
         this.onBreak = true;
         this.startTime = new Date(Date.now());
-        this.endTime = new Date(this.startTime.getTime() + this.breakLength * 60000);
+        this.endTime = new Date(this.startTime.getTime() + this.breakLength * 60000 + 1000);
         this.duration = this.breakLength * 60000;
     }
 
     endBreak() {
         this.onBreak = false;
         this.startTime = new Date(Date.now());
-        this.endTime = new Date(Date.now() + this.studyLength * 60000);
+        this.endTime = new Date(Date.now() + this.studyLength * 60000 + 1000);
         this.duration = this.studyLength * 60000;
     }
 }
@@ -129,7 +129,7 @@ var setTimer = function () {
         const timerTxt = seconds > 9 ? minutes + ":" + seconds : minutes + ":0" + seconds;
         txt.innerText = timerTxt;
         document.title = timerTxt + " - StudyHive";
-        var percent = (Date.now() - Date.parse(session.startTime)) / session.duration;
+        var percent = (Date.now() - Date.parse(session.startTime)) / (session.duration + 1000);
         rect.setAttribute("y", (RECT_START_Y + RECT_HEIGHT - (RECT_HEIGHT * percent)).toString());
 
         if (minutes < 0) {
@@ -243,7 +243,7 @@ window.onload = function () {
 }
 
 
-function spawnBee(xdestination, ydestination, ){
+function spawnBee(xdestination, ydestination,) {
     var bee = document.getElementById('bee');
     let bee_y = 250;
     let bee_x = 100;
@@ -251,14 +251,14 @@ function spawnBee(xdestination, ydestination, ){
     // bee.setAttribute("y", bee_y );
 
     bee.style.left = bee_x + "px";
-    bee.style.top = bee_y+ "px";
+    bee.style.top = bee_y + "px";
 
     let millis = 300;
     let frame = 10;
 
-    
-    bee_x_ratio = ((xdestination-bee_x)/millis);
-    bee_y_ratio = ((ydestination-bee_y)/millis);
+
+    bee_x_ratio = ((xdestination - bee_x) / millis);
+    bee_y_ratio = ((ydestination - bee_y) / millis);
 
     bee_x_initial = bee_x;
 
@@ -268,35 +268,35 @@ function spawnBee(xdestination, ydestination, ){
 
     const myInterval = setInterval(() => {
         timer++;
-        if(reverseMode && timer == 300){
+        if (reverseMode && timer == 300) {
             bee.style.transform = "scaleX(-1)";
 
         }
-        if(!reverseMode && timer == 300){
+        if (!reverseMode && timer == 300) {
             bee.style.transform = "scaleX(1)";
 
         }
-        if(reverseMode && timer > 300){
+        if (reverseMode && timer > 300) {
             bee_x -= bee_x_ratio;
             bee_y -= bee_y_ratio;
         }
-        else if(timer > 300){
+        else if (timer > 300) {
             bee_x += bee_x_ratio;
             bee_y += bee_y_ratio;
         }
 
         bee.style.left = bee_x + "px";
-        bee.style.top = bee_y + "px";  
-        if(bee_x > xdestination && timer > 300){
+        bee.style.top = bee_y + "px";
+        if (bee_x > xdestination && timer > 300) {
             timer = 0;
             reverseMode = true;
 
         }
-        if(bee_x < bee_x_initial && timer > 300){
+        if (bee_x < bee_x_initial && timer > 300) {
             reverseMode = false;
             timer = 0;
         }
- 
+
     }, frame);
 
 }
