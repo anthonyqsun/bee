@@ -30,8 +30,12 @@ class Database:
         )
 
     def addBee(self, room, name, task=""):
+        room = room.strip()
+        name = name.strip()
         if name in self.getAllBeeInfo(room):
-            self.c.execute(f"UPDATE bees SET room='{room}', task='' WHERE name='{name}'")
+            self.c.execute(
+                f"UPDATE bees SET room='{room}', task='' WHERE name='{name}'"
+            )
         else:
             self.c.execute(
                 f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",
@@ -40,6 +44,7 @@ class Database:
         self.commit()
 
     def addTask(self, room, task, color):
+        room = room.strip()
         self.c.execute(
             f"INSERT INTO tasks (task, color, room) VALUES (?, ?, ?)",
             (task, color, room),
@@ -57,6 +62,8 @@ class Database:
         return list(unique_rooms)
 
     def getTasks(self, room) -> list:
+        room = room.strip()
+
         self.c.execute(f"SELECT task, color from tasks WHERE room='{room}'")
         pairs = self.c.fetchall()
 
@@ -66,6 +73,7 @@ class Database:
             out[pair[0]] = pair[1]
 
     def getAllBeeInfo(self, room) -> dict:
+        room = room.strip()
         self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}'")
         data = self.c.fetchall()
 
@@ -77,6 +85,8 @@ class Database:
         return out
 
     def getBeeInfo(self, room, bee) -> dict:
+        room = room.strip()
+        bee = bee.strip()
         self.c.execute(
             f"SELECT honey, task FROM bees WHERE room='{room}' AND name='{bee}'"
         )
@@ -84,9 +94,12 @@ class Database:
 
         return {"honey": data[0], "task": data[1]}
 
-    def incrementHoney(self, room, bee):
+    def incrementHoney(self, room, bee, duration):
+        room = room.strip()
+        bee = bee.strip()
+        duration = int(float(duration))
         self.c.execute(
-            f"UPDATE bees SET honey={self.getBeeInfo(room, bee)['honey']+1} WHERE room='{room}' AND name='{bee}'"
+            f"UPDATE bees SET honey={self.getBeeInfo(room, bee)['honey']+duration} WHERE room='{room}' AND name='{bee}'"
         )
         self.commit()
 

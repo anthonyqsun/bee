@@ -11,25 +11,20 @@ socket.on('task_updates', (t_i) => {
     task_info = t_i;
 
     let drop = document.getElementById("task-dropdown-items");
-    drop.innerHTML="";
+    drop.innerHTML = "";
     for (task in task_info) {
         let item = document.createElement("li");
         let button = document.createElement("button");
         button.setAttribute("class", "dropdown-item");
-        button.setAttribute("type","button");
-        button.setAttribute("onclick","document.getElementById('task-dropdown').innerText = this.innerText;");
+        button.setAttribute("type", "button");
+        button.setAttribute("onclick", "document.getElementById('task-dropdown').innerText = this.innerText;");
         button.innerHTML = task;
         item.appendChild(button);
         drop.appendChild(item);
     }
 });
 
-for (bee in bee_info) {
-    console.log(bee);
-}
 let data = {};
-
-
 
 //  GLOBAL VARIABLES
 var sessionActive = false;
@@ -131,8 +126,6 @@ var setTimer = function () {
         rect.setAttribute("y", (RECT_START_Y + RECT_HEIGHT - (RECT_HEIGHT * percent)).toString());
 
         if (minutes < 0) {
-            // session.emit("timer_end", data);
-            // session.emit("update", data);
 
             clearInterval(timer);
             var studyLength = session.studyLength;
@@ -149,6 +142,9 @@ var setTimer = function () {
                 else {
                     var myModal = new bootstrap.Modal(document.getElementById('study-over-modal'), { backdrop: 'static', keyboard: false });
                     myModal.show();
+                    data["duration"] = studyLength;
+                    socket.emit("timer_end", data);
+                    socket.emit("update", data);
                 }
             }
             else {
