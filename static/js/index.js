@@ -46,6 +46,9 @@ class Bee {
         this.endY = y;
         this.x = this.startX;
         this.y = this.startY;
+        clearInterval(this.animation);
+        this.sprite.remove();
+        this.spawn();
     }
 
     spawn() {
@@ -350,6 +353,8 @@ window.onload = function () {
             document.getElementById("task-dropdown-warning").style.display = "block";
             return;
         }
+
+        bees[document.getElementById('name').innerText.trim()].changeTarget(flowers[document.getElementById("task-dropdown").innerText].offsetLeft, flowers[document.getElementById("task-dropdown").innerText].offsetTop);
         newSession(lengthField.value, breakField.value);
         timerOptionsModal.hide();
     });
@@ -358,9 +363,9 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
-function leaderboard(){
-    for(b in bee_info){
-        if(currentLeaderboard.includes(b)) continue;
+function leaderboard() {
+    for (b in bee_info) {
+        if (currentLeaderboard.includes(b)) continue;
 
         let parent = document.getElementById('leaderboard');
 
