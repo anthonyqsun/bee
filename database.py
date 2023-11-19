@@ -72,6 +72,8 @@ class Database:
         for pair in pairs:
             out[pair[0]] = pair[1]
 
+        return out
+
     def getAllBeeInfo(self, room) -> dict:
         room = room.strip()
         self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}' ORDER BY honey DESC")

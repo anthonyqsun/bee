@@ -67,22 +67,27 @@ class Session {
     }
 }
 
-function changeFlowerColor(num){
+function changeFlowerColor(num) {
     FLOWER_COLOR = num;
     //alert(num);
 }
 
-function addTask(){
+function addTask() {
     // plant flower based on flowerNum
     //alert(flowerNum);
     // do stuff with FLOWER_NUM global var
-    session.emit("create_task", data);
-    session.emit("update", data);
-    if(inputBox.value === ''){
+
+    if (inputBox.value === '') {
         alert("No input?");
     } else {
         // list item
-       // alert(FLOWER_COLOR); 
+        // alert(FLOWER_COLOR); 
+
+        data["task"] = inputBox.value;
+        data["color"] = FLOWER_COLOR;
+        socket.emit("create_task", data);
+        socket.emit("update", data);
+
         let task = document.createElement("li");
 
         // checkbox
@@ -232,6 +237,11 @@ window.onload = function () {
         var breakLength = parseInt(breakField.value);
         if (isNaN(breakLength) === NaN || breakLength < parseInt(breakField.getAttribute("min")) || breakLength > parseInt(breakField.getAttribute("max"))) {
             breakField.style.borderBottomColor = "red";
+            return;
+        }
+
+        if (document.getElementById("task-dropdown").innerText === "Select a task... ") {
+            document.getElementById("task-dropdown-warning").style.display = "block";
             return;
         }
         newSession(lengthField.value, breakField.value);
