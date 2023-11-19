@@ -1,19 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
- 
+
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <link href="/static/css/login.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/static/assets/favicon/favicon.ico">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> 
-    <script src="/static/js/login.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 
 </head>
 
@@ -22,10 +23,14 @@
         <div>
 
             <svg xmlns="http://www.w3.org/2000/svg" version="1.0" style="overflow: visible;">
-              <path id="text-curve" d="M548 729C709.558 683.041 833.988 632.652 921 593C983.25 564.632 1043.24 534.063 1057 476C1065.26 441.167 1057.26 394.831 1024 367C984.387 333.849 917.245 333.905 880 374C842.743 414.108 851.822 476.606 877 511C917.589 566.446 1006.51 557.731 1065 552C1194.46 539.313 1295.52 474.808 1362 418" fill="none" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="0" viewBox="0 0 1000 200" style="transform: translate(-20vw, 50vh)"/>
+                <path id="text-curve"
+                    d="M548 729C709.558 683.041 833.988 632.652 921 593C983.25 564.632 1043.24 534.063 1057 476C1065.26 441.167 1057.26 394.831 1024 367C984.387 333.849 917.245 333.905 880 374C842.743 414.108 851.822 476.606 877 511C917.589 566.446 1006.51 557.731 1065 552C1194.46 539.313 1295.52 474.808 1362 418"
+                    fill="none" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round"
+                    stroke-width="0" viewBox="0 0 1000 200" style="transform: translate(-20vw, 50vh)" />
 
-              <image id="cat" xlink:href="https://i.postimg.cc/V65sRW4s/bee1.png" style="transform: rotate(-20deg);"/>
-          </svg>
+                <image id="cat" xlink:href="https://i.postimg.cc/V65sRW4s/bee1.png"
+                    style="transform: rotate(-20deg);" />
+            </svg>
 
         </div>
 
@@ -35,8 +40,10 @@
                 <div class="box-hold">
 
                     <form action="/" method="POST">
-                        <input type="text" id="name" name="name" placeholder="Name your bee!" style="color: white; margin-bottom: 5px;"><br>
-                        <input type="text" id="room" name="room" placeholder="Join a hive!" style="color: white"><br><br>
+                        <input type="text" id="name" name="name" placeholder="Name your bee!"
+                            style="color: white; margin-bottom: 5px;"><br>
+                        <input type="text" id="room" name="room" placeholder="Join a hive!"
+                            style="color: white"><br><br>
 
                         <button type="submit" class="btn btn-success" onclick="submitUsername()">Enter</button>
                     </form>
@@ -47,60 +54,61 @@
 
     </div>
 
-    
+
 </body>
 
 <script>
     var path = document.querySelector('#text-curve');
-   var cat = document.querySelector('#cat');
-   var catWidth = 40;
-   var catHeight = 40;
-   
-   
-   function updateImagePosition(offset) {
-       if(offset > 0.292 && offset < 0.713){
-           let degree_change = (offset-0.292)*855
-           // cat.style.transform = "rotate(180deg)";
-           // console.log(degree_change)
-       }
-       path = document.querySelector('#text-curve');
-     let pt = path.getPointAtLength(offset * path.getTotalLength());
-     cat.setAttribute("x", (pt.x-600) );
-     cat.setAttribute("y", (pt.y/2)+250 );
-   }
-   
-   function getScrollFraction() {
-       var h = document.documentElement, 
-           b = document.body,
-           st = 'scrollTop',
-           sh = 'scrollHeight';
-       return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight);
-   }
-   
-   const rotated = document.getElementById("rotated");
-   
-   function onScroll() {
-   
-     updateImagePosition( getScrollFraction() );
-   }
-   
-   
-   updateImagePosition(0);
-   
-//    window.addEventListener('scroll', onScroll);
+    var cat = document.querySelector('#cat');
+    var catWidth = 40;
+    var catHeight = 40;
 
-   let millis = 1400;
-   let frame = 10;
-   let i = 0;
-   const myInterval = setInterval(() => {
-    updateImagePosition(i);
-    i+= frame/millis * (.7*(2*i-1)*(2*i-1) + .63);
-    if(i > 1){
-        clearInterval(myInterval);
+
+    function updateImagePosition(offset) {
+        if (offset > 0.292 && offset < 0.713) {
+            let degree_change = (offset - 0.292) * 855
+            // cat.style.transform = "rotate(180deg)";
+            // console.log(degree_change)
+        }
+        path = document.querySelector('#text-curve');
+        let pt = path.getPointAtLength(offset * path.getTotalLength());
+        cat.setAttribute("x", (pt.x - 600));
+        cat.setAttribute("y", (pt.y / 2) + 250);
     }
-   }, frame);
-   
-   
-   
+
+    function getScrollFraction() {
+        var h = document.documentElement,
+            b = document.body,
+            st = 'scrollTop',
+            sh = 'scrollHeight';
+        return (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight);
+    }
+
+    const rotated = document.getElementById("rotated");
+
+    function onScroll() {
+
+        updateImagePosition(getScrollFraction());
+    }
+
+
+    updateImagePosition(0);
+
+    //    window.addEventListener('scroll', onScroll);
+
+    let millis = 1400;
+    let frame = 10;
+    let i = 0;
+    const myInterval = setInterval(() => {
+        updateImagePosition(i);
+        i += frame / millis * (.7 * (2 * i - 1) * (2 * i - 1) + .63);
+        if (i > 1) {
+            clearInterval(myInterval);
+        }
+    }, frame);
+
+
+
 </script>
+
 </html>
