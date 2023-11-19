@@ -2,6 +2,7 @@
 var sessionActive = false;
 var FLOWER_COLOR = 0;
 var session = null;
+var FLOWER_NUM = 0;
 
 const HIVE_X = 205;
 const HIVE_Y = 319;
@@ -179,6 +180,12 @@ function addTask() {
 
         data["task"] = inputBox.value;
         data["color"] = FLOWER_COLOR;
+
+        //FLOWER_NUM++;
+        // limiting to 4 flower positions
+        FLOWER_NUM = (FLOWER_NUM+1) % 4; 
+        addFlower(data["task"], data["color"]);
+
         socket.emit("create_task", data);
         socket.emit("update", data);
 
@@ -197,6 +204,22 @@ function addTask() {
         tasksList.appendChild(task);
     }
     inputBox.value = "";
+}
+
+function addFlower(task, color){
+    let flowerStubs = ["red", "orange", "blue", "purple"];
+    
+    var flower = document.createElement("img");
+    flower.classList.add("flower");
+
+    var fname = "../static/assets/images/flower_";
+    fname += flowerStubs[color] + ".png"
+
+    flower.src = fname;
+
+    //flower.style.
+
+
 }
 
 function getMinutesLeft(endTime) {

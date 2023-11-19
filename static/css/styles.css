@@ -169,3 +169,8 @@ input::-webkit-inner-spin-button {
     top: 270px;
     left: 170px;
 }
+
+.flower {
+    position: absolute;
+    
+}
