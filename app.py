@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, send, emit, join_room
 import database
 
 app = Flask(__name__)
-app.secret_key = "jwoifawn3onaslkdfj1"
+app.secret_key = "jwoifawn3onaslkdfj1" # urandom(32)
 socketio = SocketIO(app, manage_session=False)
 
 
@@ -57,13 +57,10 @@ def create_task(data):
 def inc(data):
     db.incrementHoney(data['room'], data['name'])
 
-@socketio.on("update_leaderboard")
+@socketio.on("update")
 def update(data):
-    send("newInfo", db.getAllBeeInfo(data['room']))
-
-@socketio.on("get_task_list")
-def get_task_list(data):
-    db.getTasks
+    emit("bee_updates", db.getAllBeeInfo(data['room']))
+    emit("task_updates", db.getTasks(data['room']))
 
 if __name__ == "__main__":
     socketio.run(app)
