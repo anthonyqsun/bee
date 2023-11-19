@@ -193,20 +193,6 @@ function addTask() {
 
         socket.emit("create_task", data);
         socket.emit("update", data);
-
-        let task = document.createElement("li");
-
-        // checkbox
-        let checkbox = document.createElement("INPUT");
-        checkbox.setAttribute("type", "checkbox");
-
-        var label = document.createElement("label");
-        var labelText = document.createElement("span");
-        labelText.innerText = "  " + inputBox.value;
-        label.appendChild(checkbox);
-        label.appendChild(labelText);
-        task.appendChild(label);
-        tasksList.appendChild(task);
     }
     inputBox.value = "";
 }
