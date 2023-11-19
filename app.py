@@ -28,8 +28,6 @@ def root():
             db.addBee(room, name, 0, "")
         
         flash(name)
-        print(room)
-        print(url_for("hive", room_id=room))
         return redirect(url_for("hive", room_id=room))
 
     else:
