@@ -56,7 +56,7 @@ class Session {
 
 function addTask(){
     if(inputBox.value === ''){
-        alert("No input?");
+
     } else {
         // list item
         let task = document.createElement("li");
