@@ -74,7 +74,7 @@ class Database:
 
     def getAllBeeInfo(self, room) -> dict:
         room = room.strip()
-        self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}'")
+        self.c.execute(f"SELECT name, honey, task FROM bees WHERE room='{room}' ORDER BY honey DESC")
         data = self.c.fetchall()
 
         out = {}
@@ -114,19 +114,16 @@ class Database:
 
 if __name__ == "__main__":
     db = Database()
-    db.createBeeTable("WHERE 100")
-    db.createTaskTable("WHERE 100")
+    db.createBeeTable()
+    db.createTaskTable()
     db.addTask("WHERE 100", "watch", "green")
     db.addTask("WHERE 100", "watchs", "green")
-    db.addBee("WHERE 100", "a", 1, "cooking")
-    db.addBee("WHERE 100", "b", 1, "swimming")
-    db.addBee("WHERE 100", "c", 1, "eating")
-    db.addBee("WHERE 100", "d", 1, "")
-    db.addBee("WHERE 100", "e")
-    print(db.getAllBeeInfo("WHERE 100"))
-    db.incrementHoney("WHERE 100", "e")
-    print(db.getAllBeeInfo("WHERE 100"))
+    db.addBee("WHERE 100", "a", "cooking")
+    db.addBee("WHERE 100", "b", "swimming")
+    db.addBee("WHERE 100", "c", "eating")
+    db.addBee("WHERE 100", "d", "")
 
-    print(db.getTasks("WHERE 100"))
+    db.incrementHoney("WHERE 100", "b", 3)
+    print(db.getAllBeeInfo("WHERE 100"))
 
     db.close()
