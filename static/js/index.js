@@ -363,12 +363,11 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
-function leaderboard() {
-    for (b in bee_info) {
-        if (currentLeaderboard.includes(b)) continue;
+function leaderboard(){
+    for(b in bee_info){
 
         let parent = document.getElementById('leaderboard');
-
+        parent.innerHTML = "";
         let row = document.createElement('div');
 
         row.innerHTML = `
