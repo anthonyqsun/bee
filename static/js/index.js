@@ -366,7 +366,7 @@ window.onload = function () {
 function leaderboard(){
     for(b in bee_info){
 
-        let parent = document.getElementById('leaderboard');
+        let parent = document.getElementById('landing');
         parent.innerHTML = "";
         let row = document.createElement('div');
 
