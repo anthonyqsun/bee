@@ -29,8 +29,10 @@ def root():
 
 @app.route("/hive/<room_id>")
 def hive(room_id):
-    name = get_flashed_messages()[0]
-    return render_template("index.html", name=name, room_id=room_id)
+    flash_data = get_flashed_messages()
+    if not flash_data:
+        return redirect(url_for("root"))
+    return render_template("index.html", name=flash_data[0], room_id=room_id)
 
 @app.route('/robots.txt')
 def noindex():

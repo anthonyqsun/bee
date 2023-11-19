@@ -11,6 +11,11 @@ socket.on('task_updates', (t_i) => {
     task_info = t_i;
 });
 
+for(bee in bee_info){
+    console.log(bee);
+}
+let data = {};
+
 
 
 //  GLOBAL VARIABLES
@@ -53,8 +58,12 @@ class Session {
     }
 }
 
-function addTask() {
-    if (inputBox.value === '') {
+function addTask(){
+    //  data[task] = TASK DATA [TBD]
+    session.emit("create_task", data);
+    session.emit("update", data);
+
+    if(inputBox.value === ''){
 
     } else {
         // list item
@@ -89,6 +98,9 @@ function getSecondsLeft(endTime) {
 }
 
 var setTimer = function () {
+  //  data[task] = TASK DATA [TBD]
+    socket.emit("start_timer", data);    
+
     sessionActive = true;
     var timer = setInterval(function () {
         const RECT_HEIGHT = 187.18;
@@ -106,6 +118,9 @@ var setTimer = function () {
         rect.setAttribute("y", (RECT_START_Y + RECT_HEIGHT - (RECT_HEIGHT * percent)).toString());
 
         if (minutes < 0) {
+            session.emit("timer_end" , data);
+            session.emit("update" , data);
+
             clearInterval(timer);
             var studyLength = session.studyLength;
             var breakLength = session.breakLength;
@@ -151,10 +166,11 @@ function endSession() {
 }
 
 window.onload = function () {
-    let data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
+    data = {room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML};
 
     // Socket emits
     socket.emit("update", data);
+    socket.emit("join", data);
 
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
@@ -207,4 +223,6 @@ window.onload = function () {
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
+
+
 
