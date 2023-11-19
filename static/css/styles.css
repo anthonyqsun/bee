@@ -114,7 +114,7 @@ body {
     cursor: pointer;
     padding: 16px 50px;
     background: #fff27b;
-    border-radius: 40px; 
+    border-radius: 30px; 
 }
 
 #tasks-list{
@@ -124,21 +124,9 @@ body {
     user-select: none;
     /* cursor: none; */
 }
-
-#one-task .checkmark:after{
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
   
 .modal-content {
-    border: 10px solid #353535 !important;
+    /* border: 10px solid #353535 !important; */
     border-radius: 0px !important;
     background-color: #ccc787 !important;
 }
@@ -152,7 +140,7 @@ body {
     font-size: 24px;
 }
 
-.modal-body input {
+.modal-body input[type="input"] {
     width: 100px;
     height: 50px;
     margin-bottom: 10px;
@@ -172,11 +160,6 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
 }
 
 .animated{

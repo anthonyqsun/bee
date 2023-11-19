@@ -28,6 +28,7 @@ let data = {};
 
 //  GLOBAL VARIABLES
 var sessionActive = false;
+var FLOWER_COLOR = 0;
 var session = null;
 
 //  ELEMENTS
@@ -66,21 +67,27 @@ class Session {
     }
 }
 
-function addTask() {
-    //  data[task] = TASK DATA [TBD]
+function changeFlowerColor(num){
+    FLOWER_COLOR = num;
+    //alert(num);
+}
+
+function addTask(){
+    // plant flower based on flowerNum
+    //alert(flowerNum);
+    // do stuff with FLOWER_NUM global var
     session.emit("create_task", data);
     session.emit("update", data);
-
-    if (inputBox.value === '') {
-
+    if(inputBox.value === ''){
+        alert("No input?");
     } else {
         // list item
+       // alert(FLOWER_COLOR); 
         let task = document.createElement("li");
 
         // checkbox
         let checkbox = document.createElement("INPUT");
         checkbox.setAttribute("type", "checkbox");
-
 
         var label = document.createElement("label");
         var labelText = document.createElement("span");
