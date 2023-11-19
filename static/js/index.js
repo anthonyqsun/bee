@@ -102,6 +102,8 @@ class Bee {
 
 socket.on('bee_updates', (b_i) => {
     bee_info = b_i;
+    leaderboard();
+
     for (bee in bee_info) {
         if (bee in bees) {
 
@@ -311,6 +313,7 @@ window.onload = function () {
     socket.emit("join", data);
     socket.emit("update", data);
 
+
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
     var button = document.getElementById("start-btn");
@@ -367,6 +370,28 @@ window.onload = function () {
     inputBox = document.getElementById('task-input-box');
     tasksList = document.getElementById('tasks-list');
 }
+
+function leaderboard(){
+    for(b in bee_info){
+        let parent = document.getElementById('leaderboard');
+
+        let row = document.createElement('div');
+
+        row.innerHTML = `
+        <div class="row">
+        <div class="col-md-6">
+
+        ` + b+ `
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+        ` + bee_info[b]["honey"]+ `
+        </div>        </div>
+        `;
+
+        parent.appendChild(row);
+    }
+}
+
 
 
 
