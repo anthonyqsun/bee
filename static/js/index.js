@@ -4,8 +4,8 @@ var FLOWER_COLOR = 0;
 var session = null;
 var FLOWER_NUM = 0;
 
-const HIVE_X = 205;
-const HIVE_Y = 319;
+const HIVE_X = 170;
+const HIVE_Y = 270;
 
 let bees = {};
 let flowers = {};
@@ -188,7 +188,7 @@ function addTask() {
 
         //FLOWER_NUM++;
         // limiting to 4 flower positions
-        FLOWER_NUM = (FLOWER_NUM+1) % 4; 
+        FLOWER_NUM = (FLOWER_NUM + 1) % 4;
         addFlower(data["task"], data["color"]);
 
         socket.emit("create_task", data);
@@ -211,9 +211,9 @@ function addTask() {
     inputBox.value = "";
 }
 
-function addFlower(task, color){
+function addFlower(task, color) {
     let flowerStubs = ["red", "orange", "blue", "purple"];
-    
+
     flowers[task] = document.createElement("img");
     flowers[task].classList.add("flower");
     flowers[task].setAttribute("src", "../static/assets/images/flower_" + flowerStubs[color] + ".png");
@@ -371,8 +371,8 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
-function leaderboard(){
-    for(b in bee_info){
+function leaderboard() {
+    for (b in bee_info) {
         let parent = document.getElementById('leaderboard');
 
         let row = document.createElement('div');
@@ -381,10 +381,10 @@ function leaderboard(){
         <div class="row">
         <div class="col-md-6">
 
-        ` + b+ `
+        ` + b + `
         </div>
         <div class="col-md-6" style="text-align: right;">
-        ` + bee_info[b]["honey"]+ `
+        ` + bee_info[b]["honey"] + `
         </div>        </div>
         `;
 
