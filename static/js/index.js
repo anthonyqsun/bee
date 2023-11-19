@@ -182,7 +182,7 @@ function endSession() {
 }
 
 window.onload = function () {
-    spawnBee(300, 300);
+    spawnBee(700, 100);
 
     data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
@@ -245,15 +245,15 @@ window.onload = function () {
 
 function spawnBee(xdestination, ydestination,) {
     var bee = document.getElementById('bee');
-    let bee_y = 250;
-    let bee_x = 100;
+    let bee_y = 270;
+    let bee_x = 170;
     // bee.setAttribute("x", bee_x );
     // bee.setAttribute("y", bee_y );
 
     bee.style.left = bee_x + "px";
     bee.style.top = bee_y + "px";
 
-    let millis = 300;
+    let millis = 700;
     let frame = 10;
 
 

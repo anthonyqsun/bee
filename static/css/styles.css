@@ -165,7 +165,13 @@ input::-webkit-inner-spin-button {
 
 .animated {
     width: 100px;
+<<<<<<< HEAD
     position: absolute;
     top: 250px;
     left: 100px;
+=======
+    position: absolute; 
+    top: 270px;
+    left: 170px;
+>>>>>>> 4e28e83 (bee tweaking and im tweaking)
 }
