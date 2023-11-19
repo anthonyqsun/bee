@@ -18,8 +18,8 @@ def root():
         name = request.form.get('name')
         room = request.form.get('room').strip()
 
-        if room not in db.getRooms() and name not in db.getAllBeeInfo(room):
-            db.addBee(room, name, 0)
+        # if room not in db.getRooms() or name not in db.getAllBeeInfo(room):
+        db.addBee(room, name)
             
         flash(name)
         return redirect(url_for("hive", room_id=room))

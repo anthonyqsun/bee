@@ -28,11 +28,14 @@ class Database:
             )"
         )
 
-    def addBee(self, room, name, honey=0, task=""):
-        self.c.execute(
-            f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",
-            (name, honey, task, room)
-        )
+    def addBee(self, room, name, task=""):
+        if name in db.getAllBeeInfo(room):
+            self.c.execute(f"UPDATE bees SET room={room}, task='' WHERE name='{name}'")
+        else:
+            self.c.execute(
+                f"INSERT INTO bees (name, honey, task, room) VALUES (?, ?, ?, ?)",
+                (name, 0, task, room)
+            )
         self.commit()
 
     def addTask(self, room, task, color):
