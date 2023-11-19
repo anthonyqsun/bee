@@ -1,11 +1,122 @@
+//  GLOBAL VARIABLES
+var sessionActive = false;
+var FLOWER_COLOR = 0;
+var session = null;
+var FLOWER_NUM = 0;
+
+const HIVE_X = 170;
+const HIVE_Y = 270;
+
+let bees = {};
+let flowers = {};
+let currentLeaderboard = [];
+
+let flowersCoords = [[727, 298], [517, 387], [620, 174], [787, 97]];
+
+//  ELEMENTS
+var sessionOptionsModal;
+var inputBox = null;
+var tasksList = null;
+
 // Websocket listeners
 var socket = io();
 
 let bee_info = {};
 let task_info = {};
 
+class Bee {
+    constructor(startX, startY, endX, endY, name) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.name = name;
+
+        this.x = startX;
+        this.y = startY;
+    }
+
+    updatePosition(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    changeTarget(x, y) {
+        this.endX = x;
+        this.endY = y;
+        this.x = this.startX;
+        this.y = this.startY;
+    }
+
+    spawn() {
+        this.sprite = document.createElement("img");
+        this.sprite.setAttribute("src", "../static/assets/images/bee.gif");
+        this.sprite.setAttribute("class", "animated bee");
+        this.sprite.setAttribute("title", this.name);
+
+        this.sprite.style.left = this.startX + "px";
+        this.sprite.style.top = this.startY + "px";
+
+        document.getElementById("game").appendChild(this.sprite);
+
+        let millis = Math.sqrt(Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.y, 2));
+        let frame = 10;
+
+        let x_velocity = ((this.endX - this.x) / millis);
+        let y_velocity = ((this.endY - this.y) / millis);
+
+        let reverse = false;
+        let timer = 300;
+        let rotation = 0;
+
+        this.animation = setInterval(() => {
+            timer++;
+            if (reverse && timer == 300) {
+                this.sprite.style.transform = "scaleX(-1)";
+
+            }
+            if (!reverse && timer == 300) {
+                this.sprite.style.transform = "scaleX(1)";
+
+            }
+            if (reverse && timer > 300) {
+                this.x -= x_velocity;
+                this.y -= y_velocity;
+            }
+            else if (timer > 300) {
+                this.x += x_velocity;
+                this.y += y_velocity;
+            }
+
+            this.sprite.style.left = this.x + "px";
+            this.sprite.style.top = this.y + "px";
+            if (this.x > this.endX && timer > 300) {
+                timer = 0;
+                reverse = true;
+
+            }
+            if (this.x < this.startX && timer > 300) {
+                reverse = false;
+                timer = 0;
+            }
+
+        }, frame);
+    }
+}
+
 socket.on('bee_updates', (b_i) => {
     bee_info = b_i;
+    leaderboard();
+
+    for (bee in bee_info) {
+        if (bee in bees) {
+
+        }
+        else {
+            bees[bee] = new Bee(HIVE_X, HIVE_Y, Math.random() * 700 + HIVE_X, Math.random() * 300 + 50, bee);
+            bees[bee].spawn();
+        }
+    }
 });
 socket.on('task_updates', (t_i) => {
     task_info = t_i;
@@ -25,16 +136,6 @@ socket.on('task_updates', (t_i) => {
 });
 
 let data = {};
-
-//  GLOBAL VARIABLES
-var sessionActive = false;
-var FLOWER_COLOR = 0;
-var session = null;
-
-//  ELEMENTS
-var sessionOptionsModal;
-var inputBox = null;
-var tasksList = null;
 
 class Session {
     constructor(duration, breakLength) {
@@ -85,24 +186,29 @@ function addTask() {
 
         data["task"] = inputBox.value;
         data["color"] = FLOWER_COLOR;
+
+        //FLOWER_NUM++;
+        // limiting to 4 flower positions
+        FLOWER_NUM = (FLOWER_NUM + 1) % 4;
+        addFlower(data["task"], data["color"]);
+
         socket.emit("create_task", data);
         socket.emit("update", data);
-
-        let task = document.createElement("li");
-
-        // checkbox
-        let checkbox = document.createElement("INPUT");
-        checkbox.setAttribute("type", "checkbox");
-
-        var label = document.createElement("label");
-        var labelText = document.createElement("span");
-        labelText.innerText = "  " + inputBox.value;
-        label.appendChild(checkbox);
-        label.appendChild(labelText);
-        task.appendChild(label);
-        tasksList.appendChild(task);
     }
     inputBox.value = "";
+}
+
+function addFlower(task, color) {
+    let flowerStubs = ["red", "orange", "blue", "purple"];
+
+    flowers[task] = document.createElement("img");
+    flowers[task].classList.add("flower");
+    flowers[task].setAttribute("src", "../static/assets/images/flower_" + flowerStubs[color] + ".png");
+    flowers[task].style.left = flowersCoords[FLOWER_NUM][0] + "px";
+    flowers[task].style.top = flowersCoords[FLOWER_NUM][1] + "px";
+    flowers[task].setAttribute('title', task);
+    document.getElementById('game').appendChild(flowers[task]);
+
 }
 
 function getMinutesLeft(endTime) {
@@ -187,13 +293,13 @@ function endSession() {
 }
 
 window.onload = function () {
-    spawnBee(700, 100);
 
     data = { room: document.getElementById("room_id").innerHTML, name: document.getElementById("name").innerHTML };
 
     // Socket emits
     socket.emit("join", data);
     socket.emit("update", data);
+
 
     timerOptionsModal = new bootstrap.Modal(document.getElementById('timer-options-modal'), {});
 
@@ -252,64 +358,30 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
+function leaderboard(){
+    for(b in bee_info){
+        if(currentLeaderboard.includes(b)) continue;
 
-function spawnBee(xdestination, ydestination,) {
-    var bee = document.getElementById('bee');
-    let bee_y = 270;
-    let bee_x = 170;
-    // bee.setAttribute("x", bee_x );
-    // bee.setAttribute("y", bee_y );
+        let parent = document.getElementById('leaderboard');
 
-    bee.style.left = bee_x + "px";
-    bee.style.top = bee_y + "px";
+        let row = document.createElement('div');
 
-    let millis = 700;
-    let frame = 10;
+        row.innerHTML = `
+        <div class="row">
+        <div class="col-md-6">
 
+        ` + b + `
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+        ` + bee_info[b]["honey"] + `
+        </div>        </div>
+        `;
 
-    bee_x_ratio = ((xdestination - bee_x) / millis);
-    bee_y_ratio = ((ydestination - bee_y) / millis);
-
-    bee_x_initial = bee_x;
-
-    reverseMode = false;
-    timer = 300;
-    rotationVal = 0;
-
-    const myInterval = setInterval(() => {
-        timer++;
-        if (reverseMode && timer == 300) {
-            bee.style.transform = "scaleX(-1)";
-
-        }
-        if (!reverseMode && timer == 300) {
-            bee.style.transform = "scaleX(1)";
-
-        }
-        if (reverseMode && timer > 300) {
-            bee_x -= bee_x_ratio;
-            bee_y -= bee_y_ratio;
-        }
-        else if (timer > 300) {
-            bee_x += bee_x_ratio;
-            bee_y += bee_y_ratio;
-        }
-
-        bee.style.left = bee_x + "px";
-        bee.style.top = bee_y + "px";
-        if (bee_x > xdestination && timer > 300) {
-            timer = 0;
-            reverseMode = true;
-
-        }
-        if (bee_x < bee_x_initial && timer > 300) {
-            reverseMode = false;
-            timer = 0;
-        }
-
-    }, frame);
-
+        parent.appendChild(row);
+        currentLeaderboard.push(b);
+    }
 }
+
 
 
 
