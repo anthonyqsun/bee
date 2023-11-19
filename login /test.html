@@ -19,18 +19,15 @@
         }
     </style>
     
-
-
 </head>
 <body>
 
-
-              
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.0" style="margin-right: 80%">
-        <path d="M548 729C709.558 683.041 833.988 632.652 921 593C983.25 564.632 1043.24 534.063 1057 476C1065.26 441.167 1057.26 394.831 1024 367C984.387 333.849 917.245 333.905 880 374C842.743 414.108 851.822 476.606 877 511C917.589 566.446 1006.51 557.731 1065 552C1194.46 539.313 1295.52 474.808 1362 418" fill="none" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="10" class="infinity" style="width: 10%"/>
+    <div style="position: absolute; left: 0">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" style=" position: absolute; left: 0px; right: 0px">
+            <path d="M548 729C709.558 683.041 833.988 632.652 921 593C983.25 564.632 1043.24 534.063 1057 476C1065.26 441.167 1057.26 394.831 1024 367C984.387 333.849 917.245 333.905 880 374C842.743 414.108 851.822 476.606 877 511C917.589 566.446 1006.51 557.731 1065 552C1194.46 539.313 1295.52 474.808 1362 418" fill="none" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="10" class="infinity" style="width: 10%"  style="transform: translate(-20vw, 50vh)"/>
         </svg>
+    </div>  
 
- 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> 
 
@@ -55,9 +52,9 @@
     // Update the circle coordinates
     //    circle.setAttribute('left', point.x);
     //    circle.setAttribute('top', point.y);
-    circle.setAttribute('margin-left', point.x);
-    circle.setAttribute('margin-top', point.y);
-    console.log(point.x)
+   circle.setAttribute('margin-left', point.x);
+   circle.setAttribute('margin-top', point.y);
+   console.log(point.x)
  }
 });
    </script>

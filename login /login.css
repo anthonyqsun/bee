@@ -24,4 +24,12 @@ body{
     background-color: #b7db89;
     background-image: url("../assets/images/tree.png");
     background-repeat: no-repeat;
+
 }
+
+svg {
+    display: block;
+    position: sticky;
+    top: 20px;
+}
+
