@@ -19,7 +19,7 @@ def root():
 
         if room in db.getRooms():
             if name not in db.getAllBeeInfo():
-                db.addBee(name, 0, room)
+                db.addBee(room, 0, name)
             
         else:
             db.createBeeTable()
