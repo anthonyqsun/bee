@@ -42,6 +42,8 @@
                             <!-- gets populated in js -->
                         </ul>
                     </div>
+                    <p id="task-dropdown-warning" style="display: none; font-size: 16px; color:#EF3759;">Please select a
+                        task</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
@@ -113,47 +115,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="task-row">
-                        <input type="text" style="color: #fff;"id="task-input-box" placeholder="Add your task">
+                        <input type="text" style="color: #fff;" id="task-input-box" placeholder="Add your task">
                         <button id="add-task-button" onclick="addTask()">Add</button>
-                        
+
                     </div>
-<<<<<<< HEAD
+
                     <ul id="tasks-list">
-=======
-                    <ul id = "tasks-list">
                         <div class="colorpicker">
-                                <label for="red"> 
-                                    <input type="radio" name="color" checked="checked"
-                                        style="accent-color: #EF3759;" onclick="changeFlowerColor(0)"> 
-                                    Add A Red Flower
-                                </label>
+                            <label for="red">
+                                <input type="radio" name="color" checked="checked" style="accent-color: #EF3759;"
+                                    onclick="changeFlowerColor(0)">
+                                Add A Red Flower
+                            </label>
 
-                                <label for="orange">
-                                    <input type="radio" name="color"
-                                    style="accent-color: #FAA51D;" onclick="changeFlowerColor(1)">
-                                    Add A Orange Flower
-                                </label>
+                            <label for="orange">
+                                <input type="radio" name="color" style="accent-color: #FAA51D;"
+                                    onclick="changeFlowerColor(1)">
+                                Add A Orange Flower
+                            </label>
 
-                                <label for="blue"> 
-                                    <input type="radio" name="color"    
-                                    style="accent-color: #45C3F1;" onclick="changeFlowerColor(2)">
-                                    Add A Blue Flower
-                                </label>
-                                
-                                <label for="purple"> 
-                                    <input type="radio" name="color" 
-                                    style="accent-color: #6C52A2;" onclick="changeFlowerColor(3)"> 
-                                    Add A Purple Flower
-                                </label>
+                            <label for="blue">
+                                <input type="radio" name="color" style="accent-color: #45C3F1;"
+                                    onclick="changeFlowerColor(2)">
+                                Add A Blue Flower
+                            </label>
+
+                            <label for="purple">
+                                <input type="radio" name="color" style="accent-color: #6C52A2;"
+                                    onclick="changeFlowerColor(3)">
+                                Add A Purple Flower
+                            </label>
                         </div>
->>>>>>> 5120ce1 (tasklist done)
-                        <!-- <input type="checkbox">
-                        <span class="checkmark"></span> -->
-                        <!-- <li>Task 1</li>
-                        <li>Task 2</li>
-                        <li>Task 3</li> 
-                        <p>Modal body text goes here.</p>
-                    -->
                     </ul>
 
                 </div>

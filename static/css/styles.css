@@ -89,7 +89,7 @@ body {
 }
 
 
-.task-row{
+.task-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -108,23 +108,24 @@ body {
     font-weight: 14px;
 }
 
-#add-task-button{ /*to hexagon later or msth*/
+#add-task-button {
+    /*to hexagon later or msth*/
     border: none;
-    outline: none;  
+    outline: none;
     cursor: pointer;
     padding: 16px 50px;
     background: #fff27b;
-    border-radius: 30px; 
+    border-radius: 30px;
 }
 
-#tasks-list{
+#tasks-list {
     list-style: none;
     font-size: 17px;
     padding: 12px 8px 12px 50px;
     user-select: none;
     /* cursor: none; */
 }
-  
+
 .modal-content {
     /* border: 10px solid #353535 !important; */
     border-radius: 0px !important;
@@ -140,7 +141,7 @@ body {
     font-size: 24px;
 }
 
-.modal-body input[type="input"] {
+.modal-body input[type="number"] {
     width: 100px;
     height: 50px;
     margin-bottom: 10px;
@@ -162,9 +163,9 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.animated{
+.animated {
     width: 100px;
-    position: absolute; 
+    position: absolute;
     top: 270px;
     left: 170px;
 }
