@@ -103,7 +103,7 @@
    let i = 0;
    const myInterval = setInterval(() => {
     updateImagePosition(i);
-    i+= frame/millis;
+    i+= frame/millis * (.7*(2*i-1)*(2*i-1) + .63);
     if(i > 1){
         clearInterval(myInterval);
     }
