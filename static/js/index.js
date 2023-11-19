@@ -25,12 +25,13 @@ let bee_info = {};
 let task_info = {};
 
 class Bee {
-    constructor(startX, startY, endX, endY, name) {
+    constructor(startX, startY, endX, endY, name, task) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
         this.name = name;
+        this.task = task;
 
         this.x = startX;
         this.y = startY;
@@ -41,7 +42,7 @@ class Bee {
         this.y = y;
     }
 
-    changeTarget(x, y) {
+    changeTarget(x, y, task) {
         this.endX = x;
         this.endY = y;
         this.x = this.startX;
@@ -49,6 +50,8 @@ class Bee {
         clearInterval(this.animation);
         this.sprite.remove();
         this.spawn();
+
+        this.task = task;
     }
 
     spawn() {
@@ -113,7 +116,9 @@ socket.on('bee_updates', (b_i) => {
 
     for (bee in bee_info) {
         if (bee in bees) {
-
+            if (bees[bee].task != bee_info[bee]["task"]) {
+                bees[bee].changeTarget(flowers[bee_info[bee]["task"]].offsetLeft, flowers[bee_info[bee]["task"]].offsetTop, bee_info[bee]["task"]);
+            }
         }
         else {
             bees[bee] = new Bee(HIVE_X, HIVE_Y, Math.random() * 700 + HIVE_X, Math.random() * 300 + 50, bee);
@@ -353,8 +358,8 @@ window.onload = function () {
             document.getElementById("task-dropdown-warning").style.display = "block";
             return;
         }
-
-        bees[document.getElementById('name').innerText.trim()].changeTarget(flowers[document.getElementById("task-dropdown").innerText].offsetLeft, flowers[document.getElementById("task-dropdown").innerText].offsetTop);
+        task = document.getElementById("task-dropdown").innerText;
+        bees[document.getElementById('name').innerText.trim()].changeTarget(flowers[task].offsetLeft, flowers[task].offsetTop, task);
         newSession(lengthField.value, breakField.value);
         timerOptionsModal.hide();
     });
@@ -363,12 +368,12 @@ window.onload = function () {
     tasksList = document.getElementById('tasks-list');
 }
 
-function leaderboard(){
+function leaderboard() {
     let parent = document.getElementById('landing');
     parent.innerHTML = "";
-    
-    for(b in bee_info){
-        
+
+    for (b in bee_info) {
+
         let row = document.createElement('div');
 
         row.innerHTML = `
