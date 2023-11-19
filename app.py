@@ -19,6 +19,9 @@ def root():
         name = request.form.get("name")
         room = request.form.get("room").strip()
 
+        if not name or not room:
+            return render_template("login.html")
+
         db.addBee(room, name)
 
         flash(name)
