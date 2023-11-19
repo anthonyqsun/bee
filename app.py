@@ -9,7 +9,8 @@ socketio = SocketIO(app, manage_session=False)
 
 
 db = database.Database()
-
+db.createBeeTable()
+db.createTaskTable()
 
 @app.route("/", methods=['GET', 'POST'])
 def root():
@@ -17,15 +18,9 @@ def root():
         name = request.form.get('name')
         room = request.form.get('room').strip()
 
-        if room in db.getRooms():
-            if name not in db.getAllBeeInfo():
-                db.addBee(room, 0, name)
+        if room not in db.getRooms() and name not in db.getAllBeeInfo(room):
+            db.addBee(room, name, 0)
             
-        else:
-            db.createBeeTable()
-            db.createTaskTable()
-            db.addBee(room, name, 0, "")
-        
         flash(name)
         return redirect(url_for("hive", room_id=room))
 
